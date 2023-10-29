@@ -1,6 +1,11 @@
 '''simple website to check AQI'''
+import os
+from dotenv import load_dotenv
 from flask import Flask
 import requests
+
+load_dotenv()
+
 
 # from flask import Flask
 app = Flask(__name__)
@@ -8,7 +13,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     """API calling here"""
-    response = requests.get("https://api.airvisual.com/v2/nearest_city?key=1589f34c-b54c-4647-bfe3-ecef91f56e17")
+    response = requests.get(f"https://api.airvisual.com/v2/nearest_city?key={os.getenv('API_KEY')}")
     return response.json()
 
 if __name__ == "__main__":
